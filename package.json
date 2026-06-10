@@ -2,6 +2,9 @@
   "name": "prosto-partner",
   "version": "1.0.0",
   "main": "App.tsx",
+  "engines": {
+    "node": ">=18.18.0"
+  },
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
