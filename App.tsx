@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Component } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Platform, View, StyleSheet } from 'react-native';
+import { Platform, View, StyleSheet, Text, ScrollView } from 'react-native';
 import * as SplashScreenNative from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import {
@@ -18,6 +18,51 @@ import RootNavigator from './src/navigation/RootNavigator';
 SplashScreenNative.preventAutoHideAsync();
 
 const isWeb = Platform.OS === 'web';
+
+interface ErrorBoundaryState {
+  error: Error | null;
+  componentStack: string | null;
+}
+
+class ErrorBoundary extends Component<{ children: React.ReactNode }, ErrorBoundaryState> {
+  state: ErrorBoundaryState = { error: null, componentStack: null };
+
+  componentDidCatch(error: Error, info: React.ErrorInfo) {
+    console.error('[ErrorBoundary] caught:', error);
+    console.error('[ErrorBoundary] componentStack:', info.componentStack);
+    this.setState({ error, componentStack: info.componentStack ?? null });
+  }
+
+  static getDerivedStateFromError(error: Error): Partial<ErrorBoundaryState> {
+    return { error };
+  }
+
+  render() {
+    const { error, componentStack } = this.state;
+    if (error) {
+      return (
+        <ScrollView style={eb.scroll} contentContainerStyle={eb.container}>
+          <Text style={eb.title}>Runtime Error</Text>
+          <Text style={eb.label}>Message:</Text>
+          <Text style={eb.code}>{error.message}</Text>
+          <Text style={eb.label}>Stack:</Text>
+          <Text style={eb.code}>{error.stack ?? '(no stack)'}</Text>
+          <Text style={eb.label}>Component stack:</Text>
+          <Text style={eb.code}>{componentStack ?? '(none)'}</Text>
+        </ScrollView>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+const eb = StyleSheet.create({
+  scroll: { flex: 1, backgroundColor: '#1a1a1a' },
+  container: { padding: 16 },
+  title: { color: '#ff4444', fontSize: 18, fontWeight: 'bold', marginBottom: 12 },
+  label: { color: '#aaaaaa', fontSize: 12, marginTop: 10, marginBottom: 2 },
+  code: { color: '#ffffff', fontSize: 11, fontFamily: 'monospace' },
+});
 
 export default function App() {
   const [fontsLoaded, fontError] = useFonts({
@@ -37,24 +82,28 @@ export default function App() {
   if (!fontsLoaded && !fontError) return null;
 
   const app = (
-    <AppProvider>
-      <StatusBar style="dark" />
-      <RootNavigator />
-    </AppProvider>
+    <ErrorBoundary>
+      <AppProvider>
+        <StatusBar style="dark" />
+        <RootNavigator />
+      </AppProvider>
+    </ErrorBoundary>
   );
 
   return (
-    <GestureHandlerRootView style={styles.root}>
-      <SafeAreaProvider>
-        {isWeb ? (
-          <View style={styles.webBg}>
-            <View style={styles.phoneFrame}>{app}</View>
-          </View>
-        ) : (
-          app
-        )}
-      </SafeAreaProvider>
-    </GestureHandlerRootView>
+    <ErrorBoundary>
+      <GestureHandlerRootView style={styles.root}>
+        <SafeAreaProvider>
+          {isWeb ? (
+            <View style={styles.webBg}>
+              <View style={styles.phoneFrame}>{app}</View>
+            </View>
+          ) : (
+            app
+          )}
+        </SafeAreaProvider>
+      </GestureHandlerRootView>
+    </ErrorBoundary>
   );
 }
 
