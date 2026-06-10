@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem -Path \"e:\\\\Vibecoding\\\\Просто QR\" -Recurse -Depth 4 | Where-Object { !$_.PSIsContainer } | Select-Object -ExpandProperty FullName | Sort-Object)",
+      "PowerShell(npm view @expo-google-fonts/onest versions --json 2>&1)",
+      "PowerShell(npm view @expo-google-fonts/jetbrains-mono versions --json 2>&1)"
+    ]
+  }
+}
