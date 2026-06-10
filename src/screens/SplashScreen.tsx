@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { AuthStackParamList } from '../navigation/types';
 import { colors, fonts } from '../theme/colors';
+import Logo from '../components/Logo';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'Splash'>;
 
@@ -16,7 +17,7 @@ export default function SplashScreen({ navigation }: Props) {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.center}>
-        <Text style={styles.wordmark}>проСТО</Text>
+        <Logo width={141} height={37} />
         <Text style={styles.sub}>Карманный график вашей смены</Text>
       </View>
     </SafeAreaView>
@@ -29,13 +30,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  wordmark: {
-    fontFamily: fonts.bold,
-    fontSize: 42,
-    letterSpacing: -1.5,
-    color: colors.ink,
-    marginBottom: 12,
+    gap: 16,
   },
   sub: {
     fontFamily: fonts.regular,

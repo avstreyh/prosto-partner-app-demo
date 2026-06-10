@@ -5,6 +5,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { AuthStackParamList } from '../navigation/types';
 import { colors, fonts } from '../theme/colors';
 import Button from '../components/Button';
+import Logo from '../components/Logo';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'Permissions'>;
 
@@ -30,6 +31,7 @@ export default function PermissionsScreen({ navigation }: Props) {
     <SafeAreaView style={styles.screen}>
       <View style={styles.content}>
         <View style={styles.top}>
+          <Logo width={112} height={29} />
           <Text style={styles.eyebrow}>Разрешения</Text>
           <Text style={styles.title}>Нужен доступ к{'\n'}нескольким функциям</Text>
           <Text style={styles.sub}>

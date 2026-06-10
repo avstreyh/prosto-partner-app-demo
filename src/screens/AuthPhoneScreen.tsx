@@ -5,6 +5,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { AuthStackParamList } from '../navigation/types';
 import { colors, fonts } from '../theme/colors';
 import Button from '../components/Button';
+import Logo from '../components/Logo';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'AuthPhone'>;
 
@@ -29,6 +30,7 @@ export default function AuthPhoneScreen({ navigation }: Props) {
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
         <View style={styles.content}>
+          <Logo width={112} height={29} />
           <Text style={styles.eyebrow}>Вход</Text>
           <Text style={styles.title}>Вход для{'\n'}сотрудника</Text>
           <Text style={styles.sub}>Введите номер телефона — пришлём код для входа в смену.</Text>
