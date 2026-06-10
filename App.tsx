@@ -20,7 +20,7 @@ SplashScreenNative.preventAutoHideAsync();
 const isWeb = Platform.OS === 'web';
 
 export default function App() {
-  const [fontsLoaded] = useFonts({
+  const [fontsLoaded, fontError] = useFonts({
     Onest_400Regular,
     Onest_500Medium,
     Onest_600SemiBold,
@@ -29,12 +29,12 @@ export default function App() {
   });
 
   useEffect(() => {
-    if (fontsLoaded) {
+    if (fontsLoaded || fontError) {
       SplashScreenNative.hideAsync();
     }
-  }, [fontsLoaded]);
+  }, [fontsLoaded, fontError]);
 
-  if (!fontsLoaded) return null;
+  if (!fontsLoaded && !fontError) return null;
 
   const app = (
     <AppProvider>
