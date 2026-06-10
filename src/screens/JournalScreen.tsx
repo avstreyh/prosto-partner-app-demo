@@ -133,6 +133,12 @@ export default function JournalScreen({ navigation }: Props) {
         <View style={{ height: 100 }} />
       </ScrollView>
 
+      {/* FAB — QR scan */}
+      <TouchableOpacity style={styles.fab} onPress={openScanner} activeOpacity={0.85}>
+        <Text style={styles.fabIcon}>⊡</Text>
+        <Text style={styles.fabLabel}>QR</Text>
+      </TouchableOpacity>
+
       {/* Search sheet */}
       <SearchBottomSheet
         visible={searchOpen}
@@ -193,4 +199,23 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   timeline: { gap: 0 },
+
+  fab: {
+    position: 'absolute',
+    bottom: 28,
+    right: 20,
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: colors.ink,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: colors.ink,
+    shadowOpacity: 0.3,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 8,
+  },
+  fabIcon: { fontSize: 20, color: '#fff' },
+  fabLabel: { fontFamily: fonts.bold, fontSize: 11, color: '#fff', letterSpacing: 0.5 },
 });
