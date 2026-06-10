@@ -13,6 +13,7 @@ export default function ProfileScreen({ navigation }: Props) {
   const { auth, logout } = useAppContext();
   const partner = auth.partner!;
   const [notificationsOn, setNotificationsOn] = useState(true);
+  const [soundOn, setSoundOn] = useState(true);
 
   return (
     <SafeAreaView style={styles.screen} edges={['top', 'bottom']}>
@@ -35,7 +36,8 @@ export default function ProfileScreen({ navigation }: Props) {
           <Avatar name={partner.name} size={64} />
           <View style={styles.profileInfo}>
             <Text style={styles.profileName}>{partner.name}</Text>
-            <Text style={styles.profileRole}>{partner.washName}</Text>
+            <Text style={styles.profileRole}>{partner.role} · Пост {partner.postNumber}</Text>
+            <Text style={styles.profileWash}>{partner.washName}</Text>
           </View>
         </View>
 
@@ -54,16 +56,22 @@ export default function ProfileScreen({ navigation }: Props) {
           />
           <ListRowToggle
             icon="🔔"
-            label="Уведомления"
+            label="Уведомления о записях"
             value={notificationsOn}
             onToggle={() => setNotificationsOn((v) => !v)}
+          />
+          <ListRowToggle
+            icon="🔊"
+            label="Звук новой записи"
+            value={soundOn}
+            onToggle={() => setSoundOn((v) => !v)}
           />
           <ListRow icon="❓" label="Помощь" />
         </View>
 
         {/* Logout */}
         <TouchableOpacity style={styles.logoutBtn} onPress={logout} activeOpacity={0.8}>
-          <Text style={styles.logoutText}>Выйти из аккаунта</Text>
+          <Text style={styles.logoutText}>Выйти из смены</Text>
         </TouchableOpacity>
 
         <Text style={styles.version}>проСТО Партнёр · v1.0</Text>
@@ -170,10 +178,16 @@ const styles = StyleSheet.create({
     letterSpacing: -0.4,
   },
   profileRole: {
-    fontFamily: fonts.regular,
+    fontFamily: fonts.medium,
     fontSize: 14,
     color: colors.ink2,
     marginTop: 3,
+  },
+  profileWash: {
+    fontFamily: fonts.regular,
+    fontSize: 13,
+    color: colors.ink3,
+    marginTop: 2,
   },
 
   listCard: {

@@ -94,7 +94,7 @@ export default function ScannerScreen({ navigation }: Props) {
 
       {/* Top bar */}
       <SafeAreaView edges={['top']} style={styles.topBar}>
-        <Text style={styles.topTitle}>Сканировать QR</Text>
+        <Text style={styles.topTitle}>Подтверждение клиента</Text>
         <TouchableOpacity style={styles.closeBtn} onPress={handleClose} activeOpacity={0.75}>
           <Text style={styles.closeX}>✕</Text>
         </TouchableOpacity>
@@ -127,7 +127,7 @@ export default function ScannerScreen({ navigation }: Props) {
 
         <Text style={styles.hint}>
           {scanning
-            ? ' '
+            ? 'Распознаём код...'
             : 'Наведите камеру на QR-код\nклиента из приложения проСТО'}
         </Text>
       </View>
@@ -141,8 +141,8 @@ export default function ScannerScreen({ navigation }: Props) {
             activeOpacity={0.8}
             disabled={scanning}
           >
-            <Text style={styles.glassBtnIcon}>⊡</Text>
-            <Text style={styles.glassBtnText}>Имитировать сканирование</Text>
+            <Text style={styles.glassBtnIcon}>⌕</Text>
+            <Text style={styles.glassBtnText}>Найти запись вручную</Text>
           </TouchableOpacity>
         </View>
       )}

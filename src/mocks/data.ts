@@ -1,13 +1,15 @@
-import type { Booking, Transaction, Partner } from '../types';
+import type { Booking, Transaction, Partner, Payout } from '../types';
 
 export const mockPartner: Partner = {
   id: 'p1',
-  name: 'Алексей Петров',
-  washName: 'АвтоМойка Центр',
+  name: 'Артём',
+  role: 'Мойщик',
+  postNumber: 2,
+  washName: 'Мойка на Ленина, 42',
   phone: '+7 999 123 45 67',
-  balance: 18450,
-  nextPayoutDate: '2026-06-15',
-  nextPayoutAmount: 12300,
+  balance: 12400,
+  nextPayoutDate: '2026-06-25',
+  nextPayoutAmount: 12400,
 };
 
 export const mockBookings: Booking[] = [
@@ -116,13 +118,14 @@ export const mockGroupBookings: Booking[] = [
 
 export const mockTransactions: Transaction[] = [
   { id: 't1', date: '2026-06-10', description: 'Запись #b3 · Детейлинг', amount: 3500, type: 'credit' },
-  { id: 't2', date: '2026-06-10', description: 'Комиссия платформы', amount: -350, type: 'debit' },
-  { id: 't3', date: '2026-06-09', description: 'Запись #b2 · Экспресс-мойка', amount: 700, type: 'credit' },
-  { id: 't4', date: '2026-06-09', description: 'Запись #b1 · Комплексная мойка', amount: 1200, type: 'credit' },
-  { id: 't5', date: '2026-06-09', description: 'Комиссия платформы', amount: -190, type: 'debit' },
-  { id: 't6', date: '2026-06-08', description: 'Запись · Комплексная мойка', amount: 1400, type: 'credit' },
-  { id: 't7', date: '2026-06-07', description: 'Выплата на карту', amount: -8000, type: 'debit' },
-  { id: 't8', date: '2026-06-06', description: 'Запись · Полировка', amount: 2800, type: 'credit' },
+  { id: 't2', date: '2026-06-09', description: 'Запись #b2 · Экспресс-мойка', amount: 700, type: 'credit' },
+];
+
+export const mockPayouts: Payout[] = [
+  { id: 'p1', paidDate: '2026-06-11', periodLabel: 'Неделя 3–9 июня', amount: 11400 },
+  { id: 'p2', paidDate: '2026-06-04', periodLabel: 'Неделя 27 мая – 2 июня', amount: 9800 },
+  { id: 'p3', paidDate: '2026-05-28', periodLabel: 'Неделя 20–26 мая', amount: 11250 },
+  { id: 'p4', paidDate: '2026-05-21', periodLabel: 'Неделя 13–19 мая', amount: 8600 },
 ];
 
 // active booking for NowBlock — the "current" one

@@ -30,8 +30,8 @@ export default function AuthPhoneScreen({ navigation }: Props) {
       >
         <View style={styles.content}>
           <Text style={styles.eyebrow}>Вход</Text>
-          <Text style={styles.title}>Введите номер{'\n'}телефона</Text>
-          <Text style={styles.sub}>Отправим SMS с кодом подтверждения</Text>
+          <Text style={styles.title}>Вход для{'\n'}сотрудника</Text>
+          <Text style={styles.sub}>Введите номер телефона — пришлём код для входа в смену.</Text>
 
           <View style={styles.fieldWrap}>
             <Text style={styles.label}>Номер телефона</Text>
@@ -55,7 +55,7 @@ export default function AuthPhoneScreen({ navigation }: Props) {
 
         <View style={styles.footer}>
           <Button
-            label="Продолжить"
+            label="Получить код"
             onPress={handleContinue}
             variant="primary"
             disabled={phone.length < 3}

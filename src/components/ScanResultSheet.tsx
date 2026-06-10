@@ -26,22 +26,22 @@ const VARIANT_CONFIG: Record<
     iconColor: colors.done,
   },
   a: {
-    title: 'Не ваш клиент',
-    body: 'Этот QR принадлежит другой мойке. Свяжитесь с клиентом.',
-    icon: '!',
+    title: 'Связаться с клиентом',
+    body: 'Запись отменена. Клиент отменил запись. Уточните, нужна ли мойка сейчас.',
+    icon: '☎',
     iconBg: colors.lateBg,
     iconColor: colors.late,
   },
   b: {
-    title: 'Запись не найдена',
-    body: 'QR не распознан. Найдите запись вручную через поиск.',
-    icon: '?',
+    title: 'Найти вручную',
+    body: 'Запись на другой день. Эта запись назначена не на сегодня.',
+    icon: '⌕',
     iconBg: colors.confirmBg,
     iconColor: colors.confirm,
   },
   c: {
-    title: 'Не удалось считать',
-    body: 'Попробуйте поднести QR ближе или улучшить освещение.',
+    title: 'Повторить сканирование',
+    body: 'Не удалось прочитать QR. Код повреждён или плохо виден. Попробуйте ещё раз.',
     icon: '↺',
     iconBg: colors.waitBg,
     iconColor: colors.wait,
@@ -159,20 +159,20 @@ export default function ScanResultSheet({
           )}
           {variant === 'a' && (
             <>
-              <Button label="Связаться с клиентом" onPress={onClose} variant="danger" />
+              <Button label="Позвонить клиенту" onPress={onClose} variant="danger" />
               <Button label="Закрыть" onPress={onClose} variant="ghost" />
             </>
           )}
           {variant === 'b' && (
             <>
               <Button label="Найти запись вручную" onPress={onSearch} variant="primary" />
-              <Button label="Закрыть" onPress={onClose} variant="ghost" />
+              <Button label="Сканировать снова" onPress={onRetry} variant="ghost" />
             </>
           )}
           {variant === 'c' && (
             <>
               <Button label="Сканировать снова" onPress={onRetry} variant="primary" />
-              <Button label="Закрыть" onPress={onClose} variant="ghost" />
+              <Button label="Найти вручную" onPress={onSearch} variant="ghost" />
             </>
           )}
         </View>

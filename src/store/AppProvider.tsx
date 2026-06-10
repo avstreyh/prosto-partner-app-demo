@@ -1,9 +1,10 @@
 import React, { createContext, useContext, useReducer } from 'react';
-import type { Booking, Transaction, Partner } from '../types';
+import type { Booking, Transaction, Partner, Payout } from '../types';
 import {
   mockBookings,
   mockGroupBookings,
   mockTransactions,
+  mockPayouts,
   mockPartner,
   NOW_BOOKING_ID,
 } from '../mocks/data';
@@ -73,6 +74,7 @@ interface AppContextValue {
   setBookingStatus: (bookingId: string, status: Booking['status']) => void;
 
   transactions: Transaction[];
+  payouts: Payout[];
 }
 
 const AppContext = createContext<AppContextValue | null>(null);
@@ -108,6 +110,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         setDate,
         setBookingStatus,
         transactions: mockTransactions,
+        payouts: mockPayouts,
       }}
     >
       {children}

@@ -68,7 +68,13 @@ export default function AppointmentCardScreen({ navigation, route }: Props) {
       >
         {/* Hero photo placeholder */}
         <View style={styles.heroPhoto}>
-          <PlateLabel plate={booking.car.plate} />
+          {/* diagonal stripe pattern */}
+          {Array.from({ length: 14 }).map((_, i) => (
+            <View key={i} style={[styles.heroStripe, { left: i * 28 - 40 }]} />
+          ))}
+          <View style={styles.heroPlateWrap}>
+            <PlateLabel plate={booking.car.plate} />
+          </View>
         </View>
 
         {/* Status + chip */}
@@ -124,19 +130,17 @@ export default function AppointmentCardScreen({ navigation, route }: Props) {
       {/* CTA bar */}
       <View style={styles.ctaBar}>
         <Button
-          label="Сканировать QR"
-          onPress={() => navigation.navigate('Scanner')}
+          label="Подтвердить вручную"
+          onPress={() => setBookingStatus(bookingId, 'in_progress')}
           variant="secondary"
           style={styles.ctaSecondary}
         />
-        {nextStatus && ctaLabel && (
-          <Button
-            label={ctaLabel}
-            onPress={() => setBookingStatus(bookingId, nextStatus)}
-            variant="primary"
-            style={styles.ctaPrimary}
-          />
-        )}
+        <Button
+          label="Подтвердить по QR"
+          onPress={() => navigation.navigate('Scanner')}
+          variant="primary"
+          style={styles.ctaPrimary}
+        />
       </View>
     </SafeAreaView>
   );
@@ -207,9 +211,21 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     backgroundColor: colors.bg2,
     marginBottom: 16,
+    overflow: 'hidden',
+    alignItems: 'center',
     justifyContent: 'flex-end',
     padding: 14,
-    overflow: 'hidden',
+  },
+  heroStripe: {
+    position: 'absolute',
+    top: -40,
+    bottom: -40,
+    width: 14,
+    backgroundColor: 'rgba(0,0,0,0.05)',
+    transform: [{ rotate: '20deg' }],
+  },
+  heroPlateWrap: {
+    zIndex: 1,
   },
   statusRow: {
     flexDirection: 'row',

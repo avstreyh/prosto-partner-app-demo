@@ -16,62 +16,31 @@ export default function SplashScreen({ navigation }: Props) {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.center}>
-        <View style={styles.logoBox}>
-          <Text style={styles.logoMark}>пр</Text>
-          <View style={styles.logoDot} />
-        </View>
         <Text style={styles.wordmark}>проСТО</Text>
-        <Text style={styles.sub}>для партнёров</Text>
+        <Text style={styles.sub}>Карманный график вашей смены</Text>
       </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: colors.bg,
-  },
+  screen: { flex: 1, backgroundColor: colors.bg },
   center: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 0,
-  },
-  logoBox: {
-    width: 80,
-    height: 80,
-    borderRadius: 22,
-    backgroundColor: colors.ink,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 20,
-  },
-  logoMark: {
-    fontFamily: fonts.bold,
-    fontSize: 28,
-    color: '#fff',
-    letterSpacing: -1,
-  },
-  logoDot: {
-    position: 'absolute',
-    top: 12,
-    right: 12,
-    width: 14,
-    height: 14,
-    borderRadius: 7,
-    backgroundColor: colors.scan,
   },
   wordmark: {
     fontFamily: fonts.bold,
-    fontSize: 38,
+    fontSize: 42,
     letterSpacing: -1.5,
     color: colors.ink,
+    marginBottom: 12,
   },
   sub: {
-    fontFamily: fonts.medium,
+    fontFamily: fonts.regular,
     fontSize: 15,
     color: colors.ink3,
-    marginTop: 6,
+    letterSpacing: 0.1,
   },
 });

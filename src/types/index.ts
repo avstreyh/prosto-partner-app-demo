@@ -36,9 +36,18 @@ export interface Transaction {
 export interface Partner {
   id: string;
   name: string;
+  role: string;
+  postNumber: number;
   washName: string;
   phone: string;
   balance: number;
   nextPayoutDate: string;
   nextPayoutAmount: number;
+}
+
+export interface Payout {
+  id: string;
+  paidDate: string;
+  periodLabel: string;
+  amount: number;
 }

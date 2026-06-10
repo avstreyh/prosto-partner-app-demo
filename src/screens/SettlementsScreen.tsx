@@ -6,7 +6,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { MainStackParamList } from '../navigation/types';
 import { colors, fonts } from '../theme/colors';
 import { useAppContext } from '../store/AppProvider';
-import type { Transaction } from '../types';
+import type { Payout } from '../types';
 
 type Props = NativeStackScreenProps<MainStackParamList, 'Settlements'>;
 
@@ -18,7 +18,7 @@ function formatDate(iso: string): string {
 }
 
 export default function SettlementsScreen({ navigation }: Props) {
-  const { auth, transactions } = useAppContext();
+  const { auth, payouts } = useAppContext();
   const partner = auth.partner!;
 
   return (
@@ -51,25 +51,23 @@ export default function SettlementsScreen({ navigation }: Props) {
           <View style={styles.heroNext}>
             <Text style={styles.heroNextIcon}>📅</Text>
             <Text style={styles.heroNextText}>
-              Ближайшая выплата{' '}
+              Ближайшая выплата ·{' '}
               {new Date(partner.nextPayoutDate).toLocaleDateString('ru-RU', {
                 day: 'numeric',
                 month: 'long',
               })}
-              {' · '}
-              {partner.nextPayoutAmount.toLocaleString('ru-RU')} ₽
             </Text>
           </View>
         </LinearGradient>
 
-        {/* Transactions */}
+        {/* Payout history */}
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionLabel}>История</Text>
+          <Text style={styles.sectionLabel}>История выплат</Text>
         </View>
 
         <View style={styles.transCard}>
-          {transactions.map((t, i) => (
-            <TransactionRow key={t.id} tx={t} isLast={i === transactions.length - 1} />
+          {payouts.map((p, i) => (
+            <PayoutRow key={p.id} payout={p} isLast={i === payouts.length - 1} />
           ))}
         </View>
 
@@ -79,20 +77,18 @@ export default function SettlementsScreen({ navigation }: Props) {
   );
 }
 
-function TransactionRow({ tx, isLast }: { tx: Transaction; isLast: boolean }) {
-  const isCredit = tx.type === 'credit';
+function PayoutRow({ payout, isLast }: { payout: Payout; isLast: boolean }) {
   return (
     <View style={[styles.txRow, isLast && styles.txRowLast]}>
-      <View style={[styles.txIcon, isCredit ? styles.txIconCredit : styles.txIconDebit]}>
-        <Text style={styles.txIconEmoji}>{isCredit ? '↑' : '↓'}</Text>
+      <View style={[styles.txIcon, styles.txIconCredit]}>
+        <Text style={styles.txIconEmoji}>✓</Text>
       </View>
       <View style={styles.txInfo}>
-        <Text style={styles.txDesc}>{tx.description}</Text>
-        <Text style={styles.txDate}>{formatDate(tx.date)}</Text>
+        <Text style={styles.txDesc}>{formatDate(payout.paidDate)}</Text>
+        <Text style={styles.txDate}>{payout.periodLabel}</Text>
       </View>
-      <Text style={[styles.txAmount, isCredit ? styles.txCredit : styles.txDebit]}>
-        {isCredit ? '+' : ''}
-        {tx.amount.toLocaleString('ru-RU')} ₽
+      <Text style={[styles.txAmount, styles.txCredit]}>
+        {payout.amount.toLocaleString('ru-RU')} ₽
       </Text>
     </View>
   );
